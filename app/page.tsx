@@ -4,7 +4,14 @@ import Link from "next/link";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+const DEV_MODE = process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_DEV_MODE === 'true';
+
 export default async function Home() {
+  // In dev mode, go straight to app
+  if (DEV_MODE) {
+    redirect("/app/projects");
+  }
+
   const supabase = await createClient();
   const {
     data: { user },
